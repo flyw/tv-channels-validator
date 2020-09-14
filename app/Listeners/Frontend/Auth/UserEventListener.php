@@ -29,14 +29,14 @@ class UserEventListener
         ]);
 
         // Update the timezone via IP address
-        $geoip = geoip($ip_address);
+//        $geoip = geoip($ip_address);
 
-        if ($event->user->timezone !== $geoip['timezone']) {
-            // Update the users timezone
-            $event->user->fill([
-                'timezone' => $geoip['timezone'],
-            ]);
-        }
+//        if ($event->user->timezone !== $geoip['timezone']) {
+//            // Update the users timezone
+//            $event->user->fill([
+//                'timezone' => $geoip['timezone'],
+//            ]);
+//        }
 
         $event->user->save();
 
