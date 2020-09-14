@@ -19,7 +19,7 @@ class Channels extends Migration
             $table->string('name');
             $table->string('scheme')->index();
             $table->string('domain')->nullable()->index();
-            $table->string("url",512)->index();
+            $table->string("url",512);
             $table->smallInteger("valid")->default(0)->index();
             $table->integer("check_count")->default(0);
             $table->integer("valid_count")->default(0);
