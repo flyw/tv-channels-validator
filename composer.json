@@ -35,7 +35,6 @@
         "prettus/l5-repository": "^2.6",
         "spatie/laravel-html": "^2.22",
         "spatie/laravel-permission": "^3.0",
-        "torann/geoip": "^1.0",
         "webpatser/laravel-uuid": "^3.0",
         "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
         "yajra/laravel-datatables": "^1.5"
