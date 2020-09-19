@@ -78,7 +78,7 @@ class PlaylistController extends AppBaseController
     {
         $playlist = $this->playlistRepository->findWithoutFail($id);
         $channels = $playlist->channels()
-            ->where("valid", 1)
+//            ->where("valid", 1)
             ->get();
         Flash::success('Playlist update successfully.');
 
