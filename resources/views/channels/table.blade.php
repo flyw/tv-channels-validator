@@ -49,9 +49,9 @@
                 </td>
                 <td class="text-center setValid" data-id="{!! $channel->id !!}">
                     @if($channel->valid)
-                        <a href="#" class="btn btn-sm badge badge-success">有效</a>
+                        <button class="btn btn-sm badge badge-success">有效</button>
                     @else
-                        <a href="#" class="btn btn-sm badge badge-danger">失效</a>
+                        <button class="btn btn-sm badge badge-danger">失效</button>
                     @endif
                 </td>
                 <td class="text-center">
