@@ -4,7 +4,9 @@
     <section class="content-header">
         <h1 class="float-left">Playlists</h1>
         <h1 class="float-right">
-           <a class="btn btn-primary" href="{!! route('playlists.create') !!}"><i class="fas fa-plus-circle"></i> Add New</a>
+            <a class="btn btn-primary" href="{!! route('fxz.index') !!}"><i class="fas fa-plus-circle"></i> 分享者</a>
+
+            <a class="btn btn-primary" href="{!! route('playlists.create') !!}"><i class="fas fa-plus-circle"></i> Add New</a>
         </h1>
     </section>
     <div class="content">
@@ -19,7 +21,7 @@
             </div>
         </div>
         <div class="text-center">
-        
+
         </div>
     </div>
 @endsection

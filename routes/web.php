@@ -37,6 +37,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 
 Route::get('/home', 'HomeController@index');
 
+Route::get("playlists/{playlistId}/edit-list", "PlaylistController@editList")->name("playlists.edit-list");
+Route::patch("playlists/{playlistId}/update-list", "PlaylistController@updateList")->name("playlists.update-list");
 Route::get("playlists/{playlistId}/sync", "PlaylistController@sync")->name("playlists.sync");
 Route::resource('playlists', 'PlaylistController');
 
@@ -44,3 +46,5 @@ Route::resource('playlists', 'PlaylistController');
 
 Route::get("channels/update-playlist-id", "ChannelController@updatePlaylistId")->name("channels.update-playlist-id");
 Route::resource('channels', 'ChannelController');
+
+Route::any('fxz', 'FxzController@index')->name("fxz.index");

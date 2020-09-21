@@ -185,8 +185,19 @@ class ChannelController extends AppBaseController
 
             return redirect(route('channels.index'));
         }
+        $nullItem = [];
+        $nullItem['id'] = null;
+        $nullItem['name'] = "NULL";
 
-        return view('channels.edit')->with('channel', $channel);
+        $playlist = Playlist::orderBy("priority", "ASC")->get();
+        $playlist->prepend($nullItem);
+        $playlistArray = $playlist->mapWithKeys(function ($item) {
+            return [$item['id'] => $item['name']];
+        })->toArray();
+
+        return view('channels.edit')
+            ->with("playlistArray", $playlistArray)
+            ->with('channel', $channel);
     }
 
     /**

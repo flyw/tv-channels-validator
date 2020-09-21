@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePlaylistRequest;
 use App\Http\Requests\UpdatePlaylistRequest;
 use App\Models\Channel;
+use App\Models\Playlist;
 use App\Repositories\PlaylistRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -91,7 +92,8 @@ class PlaylistController extends AppBaseController
     {
         $playlist = $this->playlistRepository->findWithoutFail($id);
         $keywords = $playlist->getKeywordArray();
-        $channelsBuilder = Channel::where("name", "like" ,"%$keywords[0]%");
+        $channelsBuilder = Channel::whereNull("playlist_id")
+            ->where("name", "like" ,"%$keywords[0]%");
         array_shift($keywords);
         foreach ($keywords as $keyword) {
             $channelsBuilder->orWhere("name", "like" ,"%$keyword%");
@@ -126,10 +128,11 @@ class PlaylistController extends AppBaseController
     /**
      * Update the specified Playlist in storage.
      *
-     * @param  int              $id
+     * @param int $id
      * @param UpdatePlaylistRequest $request
      *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdatePlaylistRequest $request)
     {
@@ -147,6 +150,45 @@ class PlaylistController extends AppBaseController
 
         return redirect(route('playlists.index'));
     }
+
+    public function editList($id)
+    {
+        $playlist = $this->playlistRepository->findWithoutFail($id);
+
+        if (empty($playlist)) {
+            Flash::error('Playlist not found');
+
+            return redirect(route('playlists.index'));
+        }
+
+        return view('playlists.edit-list')->with('playlist', $playlist);
+    }
+
+
+    public function updateList(Request $request, $playListId)
+    {
+        $items = preg_split("/\n/", $request->get('list'));
+        foreach ($items as &$item) {
+            $item = trim($item);
+            if (false == preg_match("/,/", $item)) continue;
+            $url = preg_replace("/^.*,/", "", $item);
+            $channel = Channel::withTrashed()->firstOrNew(["url"=>$url]);
+            $channel->name = preg_replace("/,.*?$/", "", $item);
+            $urlInfo = parse_url($url);
+            if (isset($urlInfo['scheme']) == false) continue;
+            $channel->scheme = $urlInfo['scheme'];
+            $channel->domain = $urlInfo['host'];
+            $channel->playlist_id = $playListId;
+            $channel->save();
+        }
+
+        Flash::success('Channel saved successfully.');
+
+        return redirect(route('channels.index'));
+    }
+
+
+
 
     /**
      * Remove the specified Playlist from storage.

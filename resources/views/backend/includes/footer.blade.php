@@ -2,7 +2,6 @@
     <div class="ml-auto">
         <strong>
             @lang('labels.general.copyright') &copy; {{ date('Y') }}
-            <a href="http://www.joydata.com">@lang('strings.backend.general.joydata')</a>
         </strong>
         @lang('strings.backend.general.all_rights_reserved')
     </div>

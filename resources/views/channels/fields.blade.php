@@ -1,7 +1,7 @@
 <!-- Playlist Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('playlist_id', 'Playlist Id:') !!}
-    {!! Form::number('playlist_id', null, ['class' => 'form-control']) !!}
+    {!! Form::select('playlist_id', $playlistArray , null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Name Field -->
