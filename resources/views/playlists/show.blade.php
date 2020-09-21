@@ -15,7 +15,8 @@
 {{--                    <div class="col-12">--}}
                     <textarea rows="25" class="w-100 text-black-50" style="white-space: pre" readonly>
 @foreach($channels as $channel)
-{!! $channel->name !!},{!! $channel->url !!}
+@php $valid = ($channel->valid == 0)?"(失效)":""; @endphp
+{!! $channel->name !!}{!! $valid !!},{!! $channel->url !!}
 @endforeach
                     </textarea>
 {{--                    </div>--}}

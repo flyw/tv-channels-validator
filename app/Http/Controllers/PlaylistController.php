@@ -30,6 +30,7 @@ class PlaylistController extends AppBaseController
      * @param Request $request
      *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(Request $request)
     {
@@ -79,6 +80,8 @@ class PlaylistController extends AppBaseController
     {
         $playlist = $this->playlistRepository->findWithoutFail($id);
         $channels = $playlist->channels()
+            ->orderBy("valid", "DESC")
+            ->orderBy("name", "ASC")
 //            ->where("valid", 1)
             ->get();
         Flash::success('Playlist update successfully.');
