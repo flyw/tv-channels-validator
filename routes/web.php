@@ -48,3 +48,5 @@ Route::get("channels/update-playlist-id", "ChannelController@updatePlaylistId")-
 Route::resource('channels', 'ChannelController');
 
 Route::any('fxz', 'FxzController@index')->name("fxz.index");
+Route::any('fxz/av', 'FxzController@indexWithAV')->name("fxz.index-with-av");
+Route::any('fxz/test', 'FxzController@indexTest')->name("fxz.index-test");
