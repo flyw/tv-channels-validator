@@ -55,7 +55,8 @@ class FxzController extends Controller
                 $builder = $builder->where("valid", 1);
             }
             foreach ($builder->cursor() as $item) {
-                echo $item->name.($item->valid == 0)?"(失效)":"".",".$item->url."\n";
+                $valid = ($item->valid == 0)?"(失效)":"";
+                echo $item->name.$valid.",".$item->url."\n";
             }
         }
     }
