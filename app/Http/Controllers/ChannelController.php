@@ -226,6 +226,18 @@ class ChannelController extends AppBaseController
         return redirect(route('channels.index'));
     }
 
+    public function setValid($channelId) {
+        $channel = Channel::find($channelId);
+        if ($channel->valid) {
+            $channel->valid = 0;
+        }
+        else {
+            $channel->valid = 1;
+        }
+        $channel->save();
+        return response()->json(collect($channel)->only("valid")->toArray(), 200);
+    }
+
     /**
      * Remove the specified Channel from storage.
      *

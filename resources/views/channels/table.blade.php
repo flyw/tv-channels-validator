@@ -1,3 +1,25 @@
+@push("after-scripts")
+    <script>
+        $(document).ready(function () {
+           $(".setValid").click(function (event) {
+               const channelId = $(event.currentTarget).data("id");
+               $.get( "{!! url("/channels") !!}" + '/' + channelId + '/valid', function( data ) {
+                   console.log(data.valid);
+                   if (data.valid) {
+                       event.target.innerHTML = "有效";
+                       $(event.target).removeClass("badge-danger");
+                       $(event.target).addClass("badge-success");
+                   }
+                   else {
+                       event.target.innerHTML = "失效";
+                       $(event.target).removeClass("badge-success");
+                       $(event.target).addClass("badge-danger");
+                   }
+               });
+           });
+        });
+    </script>
+@endpush
 <div class="table-responsive">
     <table class="table w-100" id="channels-table">
         <thead>
@@ -25,13 +47,11 @@
                         {!! $channel->domain !!}
                     </a>
                 </td>
-                <td class="text-center">
-                    @if ($channel->check_count == 0)
-                        <span class="badge badge-success">未测试</span>
-                    @elseif($channel->valid)
-                        <span class="badge badge-success">有效</span>
+                <td class="text-center setValid" data-id="{!! $channel->id !!}">
+                    @if($channel->valid)
+                        <a href="#" class="btn btn-sm badge badge-success">有效</a>
                     @else
-                        <span class="badge badge-danger">失效</span>
+                        <a href="#" class="btn btn-sm badge badge-danger">失效</a>
                     @endif
                 </td>
                 <td class="text-center">
@@ -44,19 +64,19 @@
                 </td>
             </tr>
             <tr class="bg-secondary">
-                <td class="p-0 pl-2" colspan="4" data-toggle="tooltip" title="{!! $channel->url !!}" data-trigger="click">
+                <td class="p-0 pl-2" colspan="6" data-toggle="tooltip" title="{!! $channel->url !!}" data-trigger="click">
                     <span class="badge badge-secondary text-black-50">{!! $channel->url !!}</span>
                 </td>
-                <td class="p-0 text-center">
-                     <span class="badge badge-light text-black-50">
-                        尝试：{!! $channel->check_count !!}
-                    </span>
-                </td>
-                <td class="p-0 text-center">
-                     <span class="badge badge-light text-black-50">
-                        有效：{!! $channel->valid_count !!}
-                    </span>
-                </td>
+{{--                <td class="p-0 text-center">--}}
+{{--                     <span class="badge badge-light text-black-50">--}}
+{{--                        尝试：{!! $channel->check_count !!}--}}
+{{--                    </span>--}}
+{{--                </td>--}}
+{{--                <td class="p-0 text-center">--}}
+{{--                     <span class="badge badge-light text-black-50">--}}
+{{--                        有效：{!! $channel->valid_count !!}--}}
+{{--                    </span>--}}
+{{--                </td>--}}
             </tr>
         @endforeach
         </tbody>
