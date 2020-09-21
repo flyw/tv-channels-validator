@@ -61,7 +61,7 @@ class ChannelController extends AppBaseController
                 return $model;
             }
         });
-        $channels = $this->channelRepository->paginate();
+        $channels = $this->channelRepository->orderBy("valid", "DESC")->paginate();
 
         $schemes = Channel::select(["scheme"])->groupBy("scheme")->get();
 
