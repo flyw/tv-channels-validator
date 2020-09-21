@@ -184,7 +184,7 @@ class PlaylistController extends AppBaseController
 
         Flash::success('Channel saved successfully.');
 
-        return redirect(route('channels.index'));
+        return redirect(route('playlist.index'));
     }
 
 
