@@ -4,8 +4,8 @@
     <section class="content-header">
         <h1 class="float-left">Channels</h1>
         <h1 class="float-right">
-            <a class="btn btn-secondary" href="{!! route('channels.update-playlist-id') !!}"><i class="fas fa-sync"></i> Sync Playlist</a>
-            <a class="btn btn-primary" href="{!! route('channels.create') !!}"><i class="fas fa-plus-circle"></i> Add New</a>
+{{--            <a class="btn btn-secondary" href="{!! route('channels.update-playlist-id') !!}"><i class="fas fa-sync"></i> Sync Playlist</a>--}}
+            <a class="btn btn-primary" href="{!! route('channels.create') !!}"><i class="fas fa-plus-circle"></i> 添加[未分类]频道</a>
         </h1>
     </section>
     <div class="content">

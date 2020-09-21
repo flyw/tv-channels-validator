@@ -137,21 +137,21 @@ class ChannelController extends AppBaseController
     }
 
 
-    public function updatePlaylistId(Request $request)
-    {
-        $channels = Channel::whereNull("playlist_id")->get();
-        foreach ($channels as $channel) {
-            $playlistId = Playlist::findIdByName($channel->name);
-            if ($playlistId) {
-                $channel->playlist_id = $playlistId;
-                $channel->save();
-            }
-        }
-
-        Flash::success('PlaylistId saved successfully.');
-
-        return redirect(route('channels.index'));
-    }
+//    public function updatePlaylistId(Request $request)
+//    {
+//        $channels = Channel::whereNull("playlist_id")->get();
+//        foreach ($channels as $channel) {
+//            $playlistId = Playlist::findIdByName($channel->name);
+//            if ($playlistId) {
+//                $channel->playlist_id = $playlistId;
+//                $channel->save();
+//            }
+//        }
+//
+//        Flash::success('PlaylistId saved successfully.');
+//
+//        return redirect(route('channels.index'));
+//    }
 
     /**
      * Display the specified Channel.

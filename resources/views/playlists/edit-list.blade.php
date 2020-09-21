@@ -19,7 +19,7 @@
                        <!-- Submit Field -->
                        <div class="form-group col-12">
                            {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                           <a href="{!! route('channels.index') !!}" class="btn btn-default text-default">Cancel</a>
+                           <a href="{!! route('playlists.index') !!}" class="btn btn-default text-default">Cancel</a>
                        </div>
                     </div>
                    {!! Form::close() !!}

@@ -44,7 +44,7 @@ Route::resource('playlists', 'PlaylistController');
 
 
 Route::get("channels/{channelId}/valid", "ChannelController@setValid")->name("channels.setValid");
-Route::get("channels/update-playlist-id", "ChannelController@updatePlaylistId")->name("channels.update-playlist-id");
+//Route::get("channels/update-playlist-id", "ChannelController@updatePlaylistId")->name("channels.update-playlist-id");
 Route::resource('channels', 'ChannelController');
 
 Route::any('fxz', 'FxzController@index')->name("fxz.index");

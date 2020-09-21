@@ -30,8 +30,8 @@
                     {!! Form::open(['route' => ['playlists.destroy', $playlist->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{!! route('playlists.edit-list', [$playlist->id]) !!}" class='btn btn-primary btn-sm' data-toggle="tooltip" title="Edit List"><i class="fas fa-list"></i></a>
-                        <a href="{!! route('playlists.sync', [$playlist->id]) !!}" class='btn btn-warning btn-sm' data-toggle="tooltip" title="Sync"><i class="fas fa-sync-alt"></i></a>
-{{--                        <a href="{!! route('playlists.show', [$playlist->id]) !!}" class='btn btn-secondary btn-sm' data-toggle="tooltip" title="List"><i class="fas fa-list"></i></a>--}}
+{{--                        <a href="{!! route('playlists.sync', [$playlist->id]) !!}" class='btn btn-warning btn-sm' data-toggle="tooltip" title="Sync"><i class="fas fa-sync-alt"></i></a>--}}
+                        <a href="{!! route('playlists.show', [$playlist->id]) !!}" class='btn btn-secondary btn-sm' data-toggle="tooltip" title="List"><i class="fas fa-eye"></i></a>
                         <a href="{!! route('playlists.edit', [$playlist->id]) !!}" class='btn btn-primary btn-sm' data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                         {!! Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
