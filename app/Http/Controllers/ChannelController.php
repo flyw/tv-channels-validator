@@ -124,6 +124,7 @@ class ChannelController extends AppBaseController
             $channel->scheme = $urlInfo['scheme'];
             $channel->domain = $urlInfo['host'];
             $channel->playlist_id = Playlist::findIdByName($channel->name);
+            $channel->valid = 1;
             $channel->save();
         }
 

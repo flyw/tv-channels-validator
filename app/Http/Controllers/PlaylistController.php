@@ -179,6 +179,7 @@ class PlaylistController extends AppBaseController
             $channel->scheme = $urlInfo['scheme'];
             $channel->domain = $urlInfo['host'];
             $channel->playlist_id = $playListId;
+            $channel->valid = 1;
             $channel->save();
         }
 
