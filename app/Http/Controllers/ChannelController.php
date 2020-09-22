@@ -116,21 +116,7 @@ class ChannelController extends AppBaseController
     public function store(Request $request)
     {
         $items = preg_split("/\n/", $request->get('list'));
-        foreach ($items as &$item) {
-            $item = trim($item);
-            if (false == preg_match("/,/", $item)) continue;
-            $url = preg_replace("/^.*,/", "", $item);
-            $channel = Channel::withTrashed()->firstOrNew(["url"=>$url]);
-            $channel->name = preg_replace("/,.*?$/", "", $item);
-            $urlInfo = parse_url($url);
-            if (isset($urlInfo['scheme']) == false) continue;
-            $channel->scheme = $urlInfo['scheme'];
-            $channel->domain = $urlInfo['host'];
-            $channel->playlist_id = Playlist::findIdByName($channel->name);
-            $channel->valid = 1;
-            $channel->save();
-        }
-
+        Channel::saveItems($items);
         Flash::success('Channel saved successfully.');
 
         return redirect(route('channels.index'));

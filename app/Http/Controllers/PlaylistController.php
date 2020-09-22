@@ -171,21 +171,7 @@ class PlaylistController extends AppBaseController
     public function updateList(Request $request, $playListId)
     {
         $items = preg_split("/\n/", $request->get('list'));
-        foreach ($items as &$item) {
-            $item = trim($item);
-            if (false == preg_match("/,/", $item)) continue;
-            $url = preg_replace("/^.*,/", "", $item);
-            $channel = Channel::withTrashed()->firstOrNew(["url"=>$url]);
-            $channel->name = preg_replace("/,.*?$/", "", $item);
-            $urlInfo = parse_url($url);
-            if (isset($urlInfo['scheme']) == false) continue;
-            $channel->scheme = $urlInfo['scheme'];
-            $channel->domain = $urlInfo['host'];
-            $channel->playlist_id = $playListId;
-            $channel->valid = 1;
-            $channel->save();
-        }
-
+        Channel::saveItems($items, $playListId);
         Flash::success('Channel saved successfully.');
 
         return redirect(route('playlists.index'));

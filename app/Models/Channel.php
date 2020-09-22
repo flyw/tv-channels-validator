@@ -80,4 +80,32 @@ class Channel extends Model
         return $this->belongsTo(Playlist::class, "playlist_id");
     }
 
+    public static function saveItems($items, $playlistId = null) {
+        foreach ($items as &$item) {
+            $item = trim($item);
+            if (false == preg_match("/,/", $item)) continue;
+            $url = preg_replace("/^.*,/", "", $item);
+            $channel = Channel::withTrashed()->firstOrNew(["url"=>$url]);
+            if ($channel->name == null) {
+                $channel->name = preg_replace("/,.*?$/", "", $item);
+            }
+            $urlInfo = parse_url($url);
+            if (isset($urlInfo['scheme']) == false) continue;
+            $channel->scheme = $urlInfo['scheme'];
+            $channel->domain = $urlInfo['host'];
+            if ($channel->playlist_id == null) {
+                if ($playlistId == null ) {
+                    $channel->playlist_id = Playlist::findIdByName($channel->name);
+                } else {
+                    $channel->playlist_id = $playlistId;
+                }
+            }
+
+            if ($channel->valid === null) {
+                $channel->valid = 1;
+            }
+            $channel->save();
+        }
+    }
+
 }
