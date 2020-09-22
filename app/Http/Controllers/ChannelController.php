@@ -10,6 +10,10 @@ use App\Repositories\ChannelRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -35,6 +39,23 @@ class ChannelController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $prev = url()->previous();
+        $prev = preg_replace("/.*\//", "", $prev);
+        $prev = preg_replace("/\?.*$/", "", $prev);
+        Log::info($prev);
+        if ($prev == "channels") {
+            Session::put("channel-url", $request->fullUrl());
+        }
+        else {
+            if (Session::has("channel-apply")) {
+                Session::forget("channel-apply");
+            }
+            else if (Session::has("channel-url")) {
+                Session::put("channel-apply", true);
+                return redirect(Session::get("channel-url"));
+            }
+        }
+
         $this->channelRepository->pushCriteria(new RequestCriteria($request));
         $this->channelRepository->pushCriteria(new class() implements CriteriaInterface {
             public function apply($model, RepositoryInterface $repository) {
@@ -99,9 +120,10 @@ class ChannelController extends AppBaseController
     /**
      * Show the form for creating a new Channel.
      *
+     * @param Request $request
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('channels.create-from-list');
     }
