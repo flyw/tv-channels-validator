@@ -40,7 +40,7 @@ class FxzController extends Controller
             return [$item['id'] => $item['name']];
         })->toArray();
         foreach ($playlistArray as $playlistId => $playlistName) {
-            echo '$_start'.$playlistName.'$c_end'."\n";
+            echo '$c_start'.$playlistName.'$c_end'."\n";
             if ($playlistId != null) {
                 $builder = Channel::where("playlist_id", $playlistId);
             }
