@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Playlist;
 
-class FxzController extends Controller
+class BcController extends Controller
 {
     public function index() {
         $playlist = Playlist::orderBy("priority", "ASC")
@@ -49,12 +49,17 @@ class FxzController extends Controller
             }
 
             $builder = $builder ->orderBy("valid", "DESC")
-                ->orderBy("name", "ASC");
+                ->orderBy("name", "ASC")
+                ->orderBy("scheme", 'DESC');
+
             $builder = $builder->where("valid", 1)
-            ->where('scheme', '!=', "tvbus");
+            ->where('scheme', '!=', 'mitv');
 
             $prevName = "";
             foreach ($builder->cursor() as $item) {
+                if (preg_match("/^p8p/", $item->url)) {
+                    $item->url = preg_replace("/^p8p/", "p5p", $item->url);
+                }
                 if ($prevName == $item->name) {
                     echo "#".$item->url;
                 } else {

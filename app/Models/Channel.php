@@ -93,7 +93,8 @@ class Channel extends Model
             if (isset($urlInfo['scheme']) == false) continue;
             $channel->scheme = $urlInfo['scheme'];
             $channel->domain = $urlInfo['host'];
-            if ($channel->playlist_id == null) {
+            if ($urlInfo['scheme'] == 'tvbus') $channel->domain = 'tvbus';
+                if ($channel->playlist_id == null) {
                 if ($playlistId == null ) {
                     $channel->playlist_id = Playlist::findIdByName($channel->name);
                 } else {
