@@ -40,7 +40,7 @@ class BcController extends Controller
             return [$item['id'] => $item['name']];
         })->toArray();
         foreach ($playlistArray as $playlistId => $playlistName) {
-            echo "\n".'$c_start'.$playlistName.'$c_end'."\n";
+            echo "\n".$playlistName.',#genre#'."\n";
             if ($playlistId != null) {
                 $builder = Channel::where("playlist_id", $playlistId);
             }
@@ -82,7 +82,7 @@ class BcController extends Controller
             return [$item['id'] => $item['name']];
         })->toArray();
         foreach ($playlistArray as $playlistId => $playlistName) {
-            echo '$c_start'.$playlistName.'$c_end'."\n";
+            echo $playlistName.',#genre#'."\n";
             if ($playlistId != null) {
                 $builder = Channel::where("playlist_id", $playlistId);
             }
